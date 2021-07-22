@@ -1,7 +1,8 @@
-import { Redirect, Route } from 'react-router-dom';
-import { IonApp, IonRouterOutlet } from '@ionic/react';
+import { Route, Redirect, Switch } from 'react-router-dom';
+import { IonApp, IonLoading, IonRouterOutlet } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import Home from './pages/Home';
+import HomePage from './pages/Home';
+
 
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
@@ -21,20 +22,45 @@ import '@ionic/react/css/display.css';
 
 /* Theme variables */
 import './theme/variables.css';
+import LoginPage from './pages/LoginPage';
+import AppTabs from './AppTabs';
+import { AuthContext, useAuthInit } from './auth';
+import NotFoundPage from './pages/NotFoundPage';
+import { auth } from './firebase';
+import RegisterPage from './pages/RegisterPage';
 
-const App: React.FC = () => (
-  <IonApp>
-    <IonReactRouter>
-      <IonRouterOutlet>
-        <Route exact path="/home">
-          <Home />
-        </Route>
-        <Route exact path="/">
-          <Redirect to="/home" />
-        </Route>
-      </IonRouterOutlet>
-    </IonReactRouter>
-  </IonApp>
-);
+
+const App: React.FC = () => {
+  const {loading,auth} = useAuthInit();
+  if(loading){
+      return <IonLoading isOpen/>
+  }
+  console.log('rendering App with auth', auth);
+  return (
+    <IonApp>
+      <AuthContext.Provider value={auth}>
+        <IonReactRouter>
+          <IonRouterOutlet>
+            <Switch>
+              <Route path="/login">
+                <LoginPage/>
+              </Route>
+              <Route path="/register">
+                <RegisterPage/>
+              </Route>
+              <Route path="/my">
+                <AppTabs />
+              </Route>
+              <Redirect exact path="/" to="/my/entries" />
+              <Route>
+                <NotFoundPage/>
+              </Route>
+            </Switch>
+          </IonRouterOutlet>
+        </IonReactRouter>
+      </AuthContext.Provider>
+    </IonApp>
+  );
+};
 
 export default App;

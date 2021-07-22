@@ -1,7 +1,7 @@
 import { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'io.ionic.starter',
+  appId: 'fgw.binhdq.starter',
   appName: 'starterApp',
   webDir: 'build',
   bundledWebRuntime: false

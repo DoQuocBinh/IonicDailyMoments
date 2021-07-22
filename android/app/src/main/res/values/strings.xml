@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">starterApp</string>
+    <string name="title_activity_main">starterApp</string>
+    <string name="package_name">fgw.binhdq.starter</string>
+    <string name="custom_url_scheme">fgw.binhdq.starter</string>
+</resources>

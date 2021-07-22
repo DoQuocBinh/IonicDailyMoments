@@ -1,0 +1,6 @@
+{
+	"appId": "fgw.binhdq.starter",
+	"appName": "starterApp",
+	"webDir": "build",
+	"bundledWebRuntime": false
+}
